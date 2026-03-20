@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -e
+
+build-drjit
+
+cd $MITSUBA_ROOT/build-drjit
+
+ninja mkdoc

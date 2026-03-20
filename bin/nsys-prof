@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Run nsys profile with all arguments
+nsys profile $@
+
+# Check if profiling was successful
+if [ $? -eq 0 ]; then
+    # Find the most recently created .nsys-rep or .qdrep file
+    REPORT_FILE=$(ls -t *.nsys-rep *.qdrep 2>/dev/null | head -n 1)
+
+    if [ -n "$REPORT_FILE" ]; then
+        echo "Opening $REPORT_FILE in nsys-ui..."
+        nsys-ui "$REPORT_FILE" &
+    else
+        echo "No report file found to open"
+    fi
+fi
